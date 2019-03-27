@@ -1,12 +1,7 @@
 package br.com.fiap.paymentservice;
 
-import java.math.BigDecimal;
-
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-
-import br.com.fiap.paymentservice.enums.BandeiraCartao;
-import br.com.fiap.paymentservice.enums.FormaPagamento;
 
 
 @SpringBootApplication
@@ -14,7 +9,7 @@ public class PaymentApplication {
 
 	public static void main(String[] args) {
 		
-		
+		/*
 		Payment pay = new Payment();
 		//pay.setValorCompra(Util.arredondar(payment.getValorCompra()));
 		pay.setFormaPagamento(FormaPagamento.CREDITO);
@@ -24,7 +19,7 @@ public class PaymentApplication {
 		pay.setValorCompra(new BigDecimal("342.245469"));
 		
 		PaymentFactory.create(pay);
-		
+		*/
 		SpringApplication.run(PaymentApplication.class, args);
 	}
 

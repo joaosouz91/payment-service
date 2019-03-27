@@ -1,9 +1,9 @@
 Manifest-Version: 1.0
 Implementation-Title: order-service
 Implementation-Version: 0.0.1-SNAPSHOT
-Built-By: jsantos
+Built-By: joao-7567-ssd
 Implementation-Vendor-Id: br.com.fiap
-Build-Jdk: 1.8.0_101
+Build-Jdk: 1.8.0_181
 Implementation-URL: https://projects.spring.io/spring-boot/#/spring-bo
  ot-starter-parent/order-service
 Created-By: Maven Integration for Eclipse

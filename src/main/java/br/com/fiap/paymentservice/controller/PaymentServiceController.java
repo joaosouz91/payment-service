@@ -23,9 +23,9 @@ import lombok.extern.slf4j.Slf4j;
 @RequestMapping("/payment-service")
 public class PaymentServiceController {
 	
-    @GetMapping("/{idTransaction}")
-    public ResponseEntity getPaymentById(@PathVariable(value="idTransaction", required=true) int idTransaction) {
-        Payment payment = PaymentFactory.findPaymentById(idTransaction);
+    @GetMapping("/{idPayment}")
+    public ResponseEntity getPaymentById(@PathVariable(value="idPayment", required=true) int idPayment) {
+        Payment payment = PaymentFactory.findPaymentById(idPayment);
         if(payment != null) {
             return new ResponseEntity<>(payment, HttpStatus.OK);
         }
@@ -35,11 +35,11 @@ public class PaymentServiceController {
     @PostMapping
     public ResponseEntity<String> create(@RequestBody Payment payment) {
     	
-    	if(PaymentFactory.create(payment)) {
+    	if(PaymentFactory.create(payment) >0) {
     		URI location = ServletUriComponentsBuilder
        			 .fromCurrentRequest()
-       			 .path("/{idTransaction}")
-       			 .buildAndExpand(payment.getIdTransacao()).toUri();
+       			 .path("/{idPayment}")
+       			 .buildAndExpand(payment.getIdPayment()).toUri();
     		return ResponseEntity.created(location).build();
     	}
     	return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
@@ -54,18 +54,18 @@ public class PaymentServiceController {
     	if(payment != null) {
     		URI location = ServletUriComponentsBuilder
        			 .fromCurrentRequest()
-       			 .path("/{idTransaction}")
-       			 .buildAndExpand(payment.getIdTransacao()).toUri();
+       			 .path("/{idPayment}")
+       			 .buildAndExpand(payment.getIdPayment()).toUri();
     		return ResponseEntity.created(location).build();
     	}
     	return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
     	
     }
     
-    @DeleteMapping("{idTransaction}")
-    public ResponseEntity<String> delete(@PathVariable(value="idTransaction", required=true) int idTransaction) {
+    @DeleteMapping("{idPayment}")
+    public ResponseEntity<String> delete(@PathVariable(value="idPayment", required=true) int idPayment) {
     	
-    	if(PaymentFactory.delete(idTransaction)) {
+    	if(PaymentFactory.delete(idPayment)) {
     		return new ResponseEntity<>(HttpStatus.ACCEPTED);
     	}
     	return new ResponseEntity<>(HttpStatus.BAD_REQUEST);

@@ -6,27 +6,28 @@ import java.util.Comparator;
 import java.util.List;
 
 import br.com.fiap.paymentservice.enums.StatusPagamento;
-import br.com.fiap.paymentservice.utils.Util;
 
 public class PaymentFactory {
 	
 	private static List <Payment> paymentList = new ArrayList<Payment>();
 	private static List<Long> transacaoList = new ArrayList<Long>();
 	
-	public static boolean create(Payment payment) {
+	public static long create(Payment payment) {
    		payment.setIdTransacao(getNewIdTransacao());
+   		payment.setIdPayment(getNewIdPayment());
     	payment.setStatusPagamento(StatusPagamento.WAITING);
-    	return paymentList.add(payment);
+    	paymentList.add(payment);
+    	return Collections.max(paymentList, Comparator.comparing(v -> v.getIdPayment())).getIdPayment();
     }
 
     public static Payment update(Payment payment) {
     	for(Payment pay : paymentList) {
-    		if(pay.getIdTransacao() == payment.getIdTransacao()) {
+    		if(pay.getIdPayment() == payment.getIdPayment()) {
     			
     			//só posso mudar o pagamento se o mesmo não foi autorizado ainda    			
 				if(!pay.getStatusPagamento().equals(StatusPagamento.ACCEPTED)) {
 					pay.setIdTransacao(getNewIdTransacao());
-					//pay.setValorCompra(Util.arredondar(payment.getValorCompra()));
+					pay.setValorCompra(payment.getValorCompra());
 	    			pay.setFormaPagamento(payment.getFormaPagamento());
 	    			pay.setNumeroCartao(payment.getNumeroCartao());
 	    			pay.setValidadeCartao(payment.getValidadeCartao());
@@ -38,9 +39,9 @@ public class PaymentFactory {
 		return null;
     }
     
-    public static Payment findPaymentById(int idTransaction) {		
+    public static Payment findPaymentById(int idPayment) {		
     	for(Payment payment : paymentList) {
-    		if(idTransaction == payment.getIdTransacao()) {
+    		if(idPayment == payment.getIdPayment()) {
     			return payment;
     		}
     	}
@@ -49,7 +50,7 @@ public class PaymentFactory {
 
 	public static boolean delete(int idPayment) {
 		for(Payment payment : paymentList) {
-			if(idPayment == payment.getIdTransacao()) {
+			if(idPayment == payment.getIdPayment()) {
 				return paymentList.remove(payment);
 			}
 		}
@@ -65,5 +66,13 @@ public class PaymentFactory {
     	transacaoList.add(idTransacao);
     	return idTransacao;
     }
+	
+	public static long getNewIdPayment() {
+		long idPayment = 0;
+		if(!paymentList.isEmpty()) {
+			idPayment = Collections.max(paymentList, Comparator.comparing(v -> v.getIdPayment())).getIdPayment();
+		}
+		return idPayment + 1;
+	}
 
 }

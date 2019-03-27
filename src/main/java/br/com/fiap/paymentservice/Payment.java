@@ -17,6 +17,7 @@ import lombok.Setter;
 @AllArgsConstructor
 public class Payment {
 	
+	private long idPayment;
 	private long idTransacao;
 	private FormaPagamento formaPagamento;
 	private String numeroCartao;
