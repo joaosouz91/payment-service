@@ -1,6 +1,7 @@
 # payment-service
 
 -------------------------------------------------------
+
 # POST 
 # http://localhost:8080/payment-service
 {
@@ -10,7 +11,9 @@
     "bandeiraCartao": "MASTERCARD",
     "valorCompra": 342.24
 }
+
 -------------------------------------------------------
+
 # PUT 
 # http://localhost:8080/payment-service
 {
@@ -21,10 +24,16 @@
     "bandeiraCartao": "VISA",
     "valorCompra": 1664.32
 }
+
 -------------------------------------------------------
+
 # GET 
 # http://localhost:8080/payment-service/1
+
 -------------------------------------------------------
+
 # DELETE 
 # http://localhost:8080/payment-service/1
+
 -------------------------------------------------------
+
